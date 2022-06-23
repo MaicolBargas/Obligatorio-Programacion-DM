@@ -18,7 +18,7 @@ const Usuarios = ({navigation}) => {
               if (res.rows.length == 0) {
                 txn.executeSql('DROP TABLE IF EXISTS usuario', []);
                 txn.executeSql(
-                  'CREATE TABLE IF NOT EXISTS usuario( ci int primary key, nombre VARCHAR(20), apellido VARCHAR(20), matriculaAuto VARCHAR(7))',
+                  'CREATE TABLE IF NOT EXISTS usuario( ci int primary key, nombre VARCHAR(20), apellido VARCHAR(20), matriculaAuto VARCHAR(7) unique)  ',
                   []
                 );
               }
