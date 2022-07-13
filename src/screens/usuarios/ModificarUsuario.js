@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from "react";
 import { StyleSheet, View, SafeAreaView, TextInput, Alert, Text, TouchableOpacity } from "react-native";
-//import DropDownVehiculos from "../../components/DropDownVehiculos";
+import DropDownVehiculos from "../../components/DropDownVehiculos";
 import DatabaseConnection from "../../database/database";
 const db = DatabaseConnection.getConnection();
 
@@ -9,27 +9,37 @@ const ModificarUsuario = ({route, navigation}) => {
     const [S_Ci, setCi] = useState();
     const [S_Nombre, setNombre] = useState('');
     const [S_Apellido, setApellido] = useState();
-    const [S_matriculaAuto, setmatriculaAuto] = useState('');
+    const [S_Vehiculo, setVehiculo] = useState();
+
    
     useEffect(() => {
         setCi(route.params.ci);
         setNombre(route.params.nombre);
         setApellido(route.params.apellido);
-        setmatriculaAuto(route.params.matriculaMotor);
+        setVehiculo(route.params.matriculaAuto);
 
-         console.log( S_Nombre, S_Apellido, S_matriculaAuto)
     }, []);
    
     const editData = () => { 
       db.transaction((tx) => {
         tx.executeSql(
-          'UPDATE usuario set nombre=?, apellido=? , matriculaAuto=? where ci=?',
-          [ S_Nombre, S_Apellido, S_matriculaAuto,S_Ci],
+          'UPDATE usuario set nombre=?, apellido=?, matriculaAuto=? where ci=?',
+          [ S_Nombre, S_Apellido,S_Vehiculo,S_Ci],
           (tx, results) => {
             console.log('Results', results.rowsAffected);
             if (results.rowsAffected > 0) {
-              Alert.alert('Usuario modificado con éxito')
-            } else Alert.alert('Error');
+              Alert.alert(
+              'Hecho',
+              'Usuario modificado con éxito',
+              [
+                {
+                  text: 'Ok',
+                  onPress: () => navigation.navigate('Usuarios'),
+                },
+              ],
+              { cancelable: false }
+            );
+          }
           }
         );
       });
@@ -43,18 +53,18 @@ const ModificarUsuario = ({route, navigation}) => {
           (tx, results) => {
             console.log('Results', results.rowsAffected);
             if (results.rowsAffected > 0) {
-                Alert.alert(
-                'Hecho',
-                'Usuario eliminado con éxito',
-                [
-                  {
-                    text: 'Ok',
-                    onPress: () => navigation.navigate('ListarUsuario'),
-                  },
-                ],
-                { cancelable: false }
-              );
-            }
+              Alert.alert(
+              'Hecho',
+              'Usuario eliminado con éxito',
+              [
+                {
+                  text: 'Ok',
+                  onPress: () => navigation.navigate('Usuarios'),
+                },
+              ],
+              { cancelable: false }
+            );
+          }
           }
         );
       });
@@ -71,7 +81,7 @@ const ModificarUsuario = ({route, navigation}) => {
             placeholder="Ingresa C.I."
             value={S_Ci} 
             style={styles.textInputStyle}
-            
+            disabled = {true}            
             />
    
           <TextInput
@@ -89,13 +99,22 @@ const ModificarUsuario = ({route, navigation}) => {
             placeholder="Ingresa Apellido"
             value={S_Apellido} 
             style={styles.textInputStyle}/>
-                   
 
+          <TextInput
+            value={S_Vehiculo} 
+            style={styles.textInputStyle}
+            disabled = {true}
+            />
+          <View style={styles.dropDown}>
+                  <DropDownVehiculos
+                  selected={setVehiculo}
+                  
+                  />
+          </View>
 
           <TouchableOpacity
             style={styles.touchableOpacityEdit}
             onPress={editData}>
-  
             <Text style={styles.touchableOpacityTextEdit} > Editar Usuario </Text>
           </TouchableOpacity>
    
@@ -161,10 +180,9 @@ const styles = StyleSheet.create({
       borderRadius: 7,
       marginTop: 10,
     },
-
+    dropDown:{
+      height: 50,
+      width: '100%',
+      marginTop:5
+    }
   });
-
-/*  <DropDownVehiculos
-              selected={setmatriculaAuto}
-              defaultValue={S_matriculaAuto} 
-            />*/

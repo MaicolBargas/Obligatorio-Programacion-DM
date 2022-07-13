@@ -15,8 +15,6 @@ const AltaReparacion = ({ navigation }) => {
   const [fechaInicio, setFechaInicio] = useState('');
   const [fechaFin, setFechaFin] = useState('');
   const [costo, setCosto] = useState('');
-  const [insumos,setInsumos] = useState([]);
-  const [repuestos, setRepuestos] = useState([]);
 
 
   const clearData = () => {
@@ -26,22 +24,20 @@ const AltaReparacion = ({ navigation }) => {
     setFechaInicio("");
     setFechaFin("");
     setCosto("");
-    setInsumos("");
-    setRepuestos("");
   };
 
   const altaV = () => {
-    console.log("states",id, nombre, auto, fechaInicio, fechaFin, costo, insumos, repuestos);
+    console.log("states",id, nombre, auto, fechaInicio, fechaFin, costo);
   
-    if (!id.trim() || !nombre.trim()|| !auto.trim()|| !fechaInicio.trim()|| !fechaFin.trim() || !costo.trim()|| !insumos.trim()|| !repuestos.trim())  {
+    if (!id.trim() || !nombre.trim()|| !auto.trim()|| !fechaInicio.trim()|| !fechaFin.trim() || !costo.trim())  {
       Alert.alert("Debe ingresar todos los datos");
       return;
     }
 
     db.transaction((tx) => {
       tx.executeSql(
-        `INSERT INTO reparacion (id, nombre, auto, fechaInicio, fechaFin, costo, insumos, repuestos) VALUES (?, ?, ?, ?,?, ?, ?, ?)`,
-        [id, nombre, auto, fechaInicio, fechaFin, costo, insumos, repuestos],
+        `INSERT INTO reparacion (id, nombre, auto, fechaInicio, fechaFin, costo) VALUES (?, ?, ?, ?,?, ?)`,
+        [id, nombre, auto, fechaInicio, fechaFin, costo],
         (tx, results) => {
           console.log("results", results);        
           if (results.rowsAffected > 0) {
@@ -91,10 +87,11 @@ const AltaReparacion = ({ navigation }) => {
                 value={auto}
                 disabled = {true}
               />
-
+              <View style={styles.dropDown}>
                 <DropDownVehiculos
                     selected={setAuto}
                 />
+              </View>
                     
                 <TextInput
                 placeholder="Fecha Inicio"
@@ -119,29 +116,6 @@ const AltaReparacion = ({ navigation }) => {
                 style={styles.textInputStyle}
                 keyboardType={'numeric'}
               />
-
-              <TextInput
-                placeholder="Insumos"
-                onChangeText={setInsumos}
-                value={insumos}
-                style={styles.textInputStyle}
-                disabled = {true}
-              />
-                <DropDownInsumos 
-                selected={setInsumos}
-                />
-
-              <TextInput
-                placeholder="Repuestos"
-                onChangeText={setRepuestos}
-                value={repuestos}
-                style={styles.textInputStyle}
-              />
-              <DropDownRepuestos
-                selected={setRepuestos}
-              />
-
-
             <TouchableOpacity
                 style={styles.touchableOpacityRegister}
                 onPress={altaV}>
@@ -188,5 +162,9 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     marginTop: 10,
   },
-
+  dropDown:{
+    height: 50,
+    width: '100%',
+    marginTop:5
+  }
 });

@@ -25,7 +25,9 @@ import Reparacion from "../screens/reparacion/Reparacion";
 import AltaReparacion from "../screens/reparacion/AltaReparacion";
 import ListarReparacion from "../screens/reparacion/ListarReparacion";
 import ModificarReparacion from "../screens/reparacion/ModificarReparacion";
-
+import ReparacionRepuestos from "../screens/reparacion/ReparacionRepuestos";
+import ReparacionAdd from "../screens/reparacion/ReparacionAdd";
+import ReparacionDetalle from "../screens/reparacion/ReparacionDetalle";
 //#endregion
 
 
@@ -284,7 +286,7 @@ const Routes = () => {
                         options={{
                         title: "Reparacion",
                         headerStyle: {
-                            backgroundColor: "pink",
+                            backgroundColor: "skyblue",
                         },
                         headerTintColor: "#fff",
                         headerTitleStyle: {
@@ -298,7 +300,7 @@ const Routes = () => {
                         options={{
                         title: "Alta Reparacion",
                         headerStyle: {
-                            backgroundColor: "pink",
+                            backgroundColor: "skyblue",
                         },
                         headerTintColor: "#fff",
                         headerTitleStyle: {
@@ -312,7 +314,7 @@ const Routes = () => {
                         options={{
                         title: "Lista de Reparacion",
                         headerStyle: {
-                            backgroundColor: "pink",
+                            backgroundColor: "skyblue",
                         },
                         headerTintColor: "#fff",
                         headerTitleStyle: {
@@ -326,14 +328,56 @@ const Routes = () => {
                         options={{
                         title: "Modificar Reparacion",
                         headerStyle: {
-                            backgroundColor: "pink",
+                            backgroundColor: "skyblue",
                         },
                         headerTintColor: "#fff",
                         headerTitleStyle: {
                             fontWeight: "bold",
                         },
                         }}
-                    />                                  
+                    />
+                    <Stack.Screen
+                        name="ReparacionRepuestos"
+                        component={ReparacionRepuestos}
+                        options={{
+                        title: " Repuestos e Insumos",
+                        headerStyle: {
+                            backgroundColor: "skyblue",
+                        },
+                        headerTintColor: "#fff",
+                        headerTitleStyle: {
+                            fontWeight: "bold",
+                        },
+                        }}
+                    />
+                    <Stack.Screen
+                        name="ReparacionAdd"
+                        component={ReparacionAdd}
+                        options={{
+                        title: "Agregar insumos y repuestos",
+                        headerStyle: {
+                            backgroundColor: "skyblue",
+                        },
+                        headerTintColor: "#fff",
+                        headerTitleStyle: {
+                            fontWeight: "bold",
+                        },
+                        }}
+                    />
+                    <Stack.Screen
+                        name="ReparacionDetalle"
+                        component={ReparacionDetalle}
+                        options={{
+                        title: "Detalle de reparacion",
+                        headerStyle: {
+                            backgroundColor: "skyblue",
+                        },
+                        headerTintColor: "#fff",
+                        headerTitleStyle: {
+                            fontWeight: "bold",
+                        },
+                        }}
+                    />                                                                                                          
                 </Stack.Navigator>
         </NavigationContainer>
     )

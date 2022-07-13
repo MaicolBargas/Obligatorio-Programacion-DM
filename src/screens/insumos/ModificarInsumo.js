@@ -6,7 +6,7 @@ const db = DatabaseConnection.getConnection();
 
 const ModificarInsumo = ({route, navigation}) => {
     
-    const [S_Id, setId] = useState('');
+    const [S_Id, setId] = useState();
     const [S_Nombre, setNombre] = useState('');
     const [S_Cantidad, setCantidad] = useState();
    
@@ -24,8 +24,18 @@ const ModificarInsumo = ({route, navigation}) => {
           (tx, results) => {
             console.log('Results', results.rowsAffected);
             if (results.rowsAffected > 0) {
-              Alert.alert('Insumo modificado con éxito')
-            } else Alert.alert('Error');
+              Alert.alert(
+              'Hecho',
+              'Insumo modificado con éxito',
+              [
+                {
+                  text: 'Ok',
+                  onPress: () => navigation.navigate('Insumos'),
+                },
+              ],
+              { cancelable: false }
+            );
+          }
           }
         );
       });
@@ -39,19 +49,18 @@ const ModificarInsumo = ({route, navigation}) => {
           (tx, results) => {
             console.log('Results', results.rowsAffected);
             if (results.rowsAffected > 0) {
-                navigation.navigate('ListarInsumo'),
-                Alert.alert(
-                'Hecho',
-                'Insumo eliminado con éxito',
-                [
-                  {
-                    text: 'Ok',
-                    onPress: () => navigation.navigate('ListarInsumo'),
-                  },
-                ],
-                { cancelable: false }
-              );
-            }
+              Alert.alert(
+              'Hecho',
+              'Insumo eliminado con éxito',
+              [
+                {
+                  text: 'Ok',
+                  onPress: () => navigation.navigate('Insumos'),
+                },
+              ],
+              { cancelable: false }
+            );
+          }
           }
         );
       });
@@ -68,7 +77,8 @@ const ModificarInsumo = ({route, navigation}) => {
             placeholder="Ingresa id"
             value={S_Id} 
             style={styles.textInputStyle}
-            disabled = {true}/>
+            disabled = {true}
+            />
    
           <TextInput
             onChangeText={

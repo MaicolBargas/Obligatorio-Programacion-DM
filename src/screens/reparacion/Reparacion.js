@@ -17,7 +17,7 @@ const Reparacion = ({navigation}) => {
               if (res.rows.length == 0) {
                 txn.executeSql('DROP TABLE IF EXISTS reparacion', []);
                 txn.executeSql(
-                  'CREATE TABLE IF NOT EXISTS reparacion( id int primary key, nombre VARCHAR(20), auto VARCHAR(7), fechaInicio date, fechaFin date, costo int, insumos varchar(50), repuestos varchar(50))',
+                  'CREATE TABLE IF NOT EXISTS reparacion( id int primary key, nombre VARCHAR(20), auto VARCHAR(7), fechaInicio date, fechaFin date, costo int)',
                   []
                 );
               }
@@ -43,7 +43,14 @@ const Reparacion = ({navigation}) => {
                   btnColor="blue"
                   btnIcon="list-alt"
                   customPress={() => navigation.navigate("ListarReparacion")}
-                />                                      
+                />
+
+                <MyButton
+                  title="Agregar Insumos y Repuestos"
+                  btnColor="pink"
+                  btnIcon="wrench"
+                  customPress={() => navigation.navigate("ReparacionAdd")}
+                />                                       
               </ScrollView>
             </View>
           </View>

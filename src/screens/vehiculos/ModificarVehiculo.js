@@ -46,14 +46,13 @@ const ModificarVehiculo = ({route, navigation}) => {
           (tx, results) => {
             console.log('Results', results.rowsAffected);
             if (results.rowsAffected > 0) {
-                navigation.navigate('ListarVehiculo'),
                 Alert.alert(
                 'Hecho',
                 'Vehiculo eliminado con éxito',
                 [
                   {
                     text: 'Ok',
-                    onPress: () => navigation.navigate('ListarVehiculo'),
+                    onPress: () => navigation.navigate('Vehiculos'),
                   },
                 ],
                 { cancelable: false }

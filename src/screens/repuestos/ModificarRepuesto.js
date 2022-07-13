@@ -24,8 +24,18 @@ const ModificarRepuesto = ({route, navigation}) => {
           (tx, results) => {
             console.log('Results', results.rowsAffected);
             if (results.rowsAffected > 0) {
-              Alert.alert('Repuesto modificado con éxito')
-            } else Alert.alert('Error');
+              Alert.alert(
+              'Hecho',
+              'Repuesto modificado con éxito',
+              [
+                {
+                  text: 'Ok',
+                  onPress: () => navigation.navigate('Repuestos'),
+                },
+              ],
+              { cancelable: false }
+            );
+          }
           }
         );
       });
@@ -39,19 +49,18 @@ const ModificarRepuesto = ({route, navigation}) => {
           (tx, results) => {
             console.log('Results', results.rowsAffected);
             if (results.rowsAffected > 0) {
-                navigation.navigate('ListarRepuesto'),
-                Alert.alert(
-                'Hecho',
-                'Repuesto eliminado con éxito',
-                [
-                  {
-                    text: 'Ok',
-                    onPress: () => navigation.navigate('ListarRepuesto'),
-                  },
-                ],
-                { cancelable: false }
-              );
-            }
+              Alert.alert(
+              'Hecho',
+              'Repuesto eliminado con éxito',
+              [
+                {
+                  text: 'Ok',
+                  onPress: () => navigation.navigate('Repuestos'),
+                },
+              ],
+              { cancelable: false }
+            );
+          }
           }
         );
       });

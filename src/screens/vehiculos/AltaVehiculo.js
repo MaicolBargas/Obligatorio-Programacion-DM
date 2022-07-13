@@ -63,6 +63,7 @@ const AltaVehiculo = ({ navigation }) => {
                 value={Matricula}
                 style={styles.textInputStyle}
                 maxLength={7}
+                
               />
 
               <TextInput

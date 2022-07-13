@@ -12,9 +12,7 @@ const ModificarReparacion = ({route, navigation}) => {
     const [fechaInicio, setFechaInicio] = useState('');
     const [fechaFin, setFechaFin] = useState('');
     const [costo, setCosto] = useState('');
-    const [insumos,setInsumos] = useState([]);
-    const [repuestos, setRepuestos] = useState([]);
-   
+
     useEffect(() => {
         setId(route.params.id);
         setNombre(route.params.nombre);
@@ -22,21 +20,29 @@ const ModificarReparacion = ({route, navigation}) => {
         setFechaInicio(route.params.fechaInicio);
         setFechaFin(route.params.fechaFin);
         setCosto(route.params.costo);
-        setInsumos(route.params.insumos);
-        setRepuestos(route.params.repuestos);
 
     }, []);
    
     const editData = () => { 
       db.transaction((tx) => {
         tx.executeSql(
-          'UPDATE reparacion set nombre=?, auto=? , fechaInicio=?,fechaFin=?, costo=? , insumos=? , repuestos=? where id=?',
-          [ nombre, auto, fechaInicio, fechaFin, costo, insumos,repuestos,id ],
+          'UPDATE reparacion set nombre=?, auto=? , fechaInicio=?,fechaFin=?, costo=? where id=?',
+          [ nombre, auto, fechaInicio, fechaFin, costo,id ],
           (tx, results) => {
             console.log('Results', results.rowsAffected);
             if (results.rowsAffected > 0) {
-              Alert.alert('Reparacion modificada con éxito')
-            } else Alert.alert('Error');
+              Alert.alert(
+              'Hecho',
+              'Reparacion modificada con éxito',
+              [
+                {
+                  text: 'Ok',
+                  onPress: () => navigation.navigate('Reparacion'),
+                },
+              ],
+              { cancelable: false }
+            );
+          }
           }
         );
       });
@@ -50,18 +56,18 @@ const ModificarReparacion = ({route, navigation}) => {
           (tx, results) => {
             console.log('Results', results.rowsAffected);
             if (results.rowsAffected > 0) {
-                Alert.alert(
-                'Hecho',
-                'Reparacion eliminada con éxito',
-                [
-                  {
-                    text: 'Ok',
-                    onPress: () => navigation.navigate('ListarReparacion'),
-                  },
-                ],
-                { cancelable: false }
-              );
-            }
+              Alert.alert(
+              'Hecho',
+              'Reparacion eliminado con éxito',
+              [
+                {
+                  text: 'Ok',
+                  onPress: () => navigation.navigate('Reparacion'),
+                },
+              ],
+              { cancelable: false }
+            );
+          }
           }
         );
       });
@@ -76,7 +82,6 @@ const ModificarReparacion = ({route, navigation}) => {
                 onChangeText={setId}
                 value={id}
                 style={styles.textInputStyle}                
-                keyboardType={'numeric'}
                 disabled = {true}
               />
 
@@ -118,22 +123,6 @@ const ModificarReparacion = ({route, navigation}) => {
                 value={costo}
                 style={styles.textInputStyle}
                 keyboardType={'numeric'}
-              />
-
-              <TextInput
-                placeholder="Insumos"
-                onChangeText={setInsumos}
-                value={insumos}
-                style={styles.textInputStyle}
-                disabled = {true}
-              />
-
-              <TextInput
-                placeholder="Repuestos"
-                onChangeText={setRepuestos}
-                value={repuestos}
-                style={styles.textInputStyle}
-                disabled = {true}
               />
 
           <TouchableOpacity

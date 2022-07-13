@@ -76,7 +76,7 @@ const ListarInsumo = ({navigation}) => {
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item }) =>
                 <View key={item.id} style={{ padding: 20 }}>
-                  <TouchableOpacity onPress={() => navigateToEditScreen(item.id, item.nombre, item.cantidad)} >
+                  <TouchableOpacity onPress={() => navigateToEditScreen(item.id.toString(), item.nombre, item.cantidad.toString())} >
                     <Text> Id: {item.id} </Text>
                     <Text> Nombre: {item.nombre} </Text>
                     <Text> Cantidad : {item.cantidad} </Text>

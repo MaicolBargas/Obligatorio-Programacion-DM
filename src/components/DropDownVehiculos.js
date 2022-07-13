@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from "react";
-import {Picker, Item, View,Text } from "react-native";
+import {Picker} from "@react-native-picker/picker";
+
 
 
 import DatabaseConnection from "../database/database";

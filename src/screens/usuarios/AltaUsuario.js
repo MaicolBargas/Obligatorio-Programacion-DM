@@ -41,7 +41,7 @@ const AltaUsuario = ({ navigation }) => {
               [
                 {
                   text: "Ok",
-                  onPress: () => navigation.navigate("Usuario"),
+                  onPress: () => navigation.navigate("Usuarios"),
                 },
               ],
               { cancelable: false }
@@ -81,11 +81,18 @@ const AltaUsuario = ({ navigation }) => {
                 style={styles.textInputStyle}
                 maxLength={25}
               />
-
-                <DropDownVehiculos
-                selected={setMatriculaAuto}
-                />
-
+              
+              <TextInput
+                placeholder="Matricula de Vehiculo"
+                value={matriculaAuto}
+                style={styles.textInputStyle}
+                disabled={true}
+              />
+              <View style={styles.dropDown}>
+                  <DropDownVehiculos
+                  selected={setMatriculaAuto}                  
+                  />
+              </View>
             <TouchableOpacity
                 style={styles.touchableOpacityRegister}
                 onPress={altaV}>
@@ -132,5 +139,9 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     marginTop: 10,
   },
-
+  dropDown:{
+    height: 50,
+    width: '100%',
+    marginTop:5
+  }
 });
